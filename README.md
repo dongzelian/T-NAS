@@ -32,7 +32,7 @@ PyTorch implementation  of ICLR2020 paper 'Towards Fast Adaptation of Neural Arc
     
 1. 5-way, 1-shot
 
-normal cell
+normal cell and reduction cell
 
 <p float="center">
     <img src='images/normal_5way_1shot.jpg' height="160"/>
@@ -40,25 +40,15 @@ normal cell
 </p>
 
 
-reduction cell
-
-
-
-![miniimagetnet](images/normal_5way_1shot.jpg)
-
-
-![miniimagetnet](images/reduction_5way_1shot.jpg)
-
-
 2. 5-way, 5-shot
 
-normal cell
+normal cell and reduction cell
 
-![miniimagetnet](images/normal_5way_5shot.jpg)
+<p float="center">
+    <img src='images/normal_5way_5shot.jpg' height="100"/>
+    <img src='images/reduction_5way_5shot.jpg' height="160"/>
+</p>
 
-reduction cell
-
-![miniimagetnet](images/reduction_5way_5shot.jpg)
 
 
 ## Evaluate auto-maml in Mini-Imagenet
