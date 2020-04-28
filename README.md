@@ -34,6 +34,11 @@ PyTorch implementation  of ICLR2020 paper 'Towards Fast Adaptation of Neural Arc
 
 normal cell
 
+<p float="center">
+    <img src='images/normal_5way_1shot.jpg' width="135"/>
+</p>
+
+
 ![miniimagetnet](images/normal_5way_1shot.jpg)
 
 reduction cell
