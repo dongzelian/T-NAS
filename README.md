@@ -36,7 +36,7 @@ normal cell
 
 <p float="center">
     <img src='images/normal_5way_1shot.jpg' height="160"/>
-    <img src='images/reduction_5way_1shot.jpg' height="160"/>
+    <img src='images/reduction_5way_1shot.jpg' height="100"/>
 </p>
 
 
