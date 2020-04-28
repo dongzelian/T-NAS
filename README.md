@@ -32,16 +32,16 @@ PyTorch implementation  of ICLR2020 paper 'Towards Fast Adaptation of Neural Arc
     
 1. 5-way, 1-shot
 
-normal cell
+normal cell and reduction cell
 
 <p float="center">
-    <img src='images/normal_5way_1shot.jpg' width="135"/>
+    <img src='images/normal_5way_1shot.jpg' height="250"/>
+    <img src='images/reduction_5way_1shot.jpg' height="250"/>
 </p>
 
 
 ![miniimagetnet](images/normal_5way_1shot.jpg)
 
-reduction cell
 
 ![miniimagetnet](images/reduction_5way_1shot.jpg)
 
