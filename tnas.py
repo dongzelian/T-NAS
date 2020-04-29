@@ -112,10 +112,10 @@ def main():
     # batch_size here means total episode number
     mini = MiniImagenet(args.data_path, mode='train', n_way=args.n_way, k_shot=args.k_spt,
                         k_query=args.k_qry,
-                        batch_size=args.batch_size, resize=args.img_size, split=[0, args.train_portion])
+                        batch_size=args.batch_size, resize=args.img_size)
     mini_valid = MiniImagenet(args.data_path, mode='train', n_way=args.n_way, k_shot=args.k_spt,
                         k_query=args.k_qry,
-                        batch_size=args.batch_size, resize=args.img_size, split=[args.train_portion, 1])
+                        batch_size=args.test_batch_size, resize=args.img_size)
 
     train_loader = DataLoader(mini, args.meta_batch_size, shuffle=True, num_workers=args.num_workers, pin_memory=True)
     valid_loader = DataLoader(mini_valid, args.meta_test_batch_size, shuffle=True, num_workers=args.num_workers, pin_memory=True)
