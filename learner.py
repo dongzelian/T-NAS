@@ -71,10 +71,7 @@ class Network(nn.Module):
         self._multiplier = multiplier
 
         C_curr = stem_multiplier*C
-        # self.stem = nn.Sequential(
-        #     nn.Conv2d(3, C_curr, kernel_size=3, stride=2, padding=1, bias=False),
-        #     nn.BatchNorm2d(C_curr)
-        # )
+
 
 
         self.stem0 = nn.Sequential(
@@ -89,29 +86,12 @@ class Network(nn.Module):
 
 
 
-        # self.stem1 = nn.Sequential(
-        #     nn.ReLU(inplace=True),
-        #     nn.Conv2d(C_curr, C_curr, 3, stride=2, padding=1, bias=False),
-        #     nn.BatchNorm2d(C_curr),
-        # )
-
-
-        # TODO: refine the network structure according to layers=1
         C_prev_prev, C_prev, C_curr = C_curr, C_curr, C
         self.cells = nn.ModuleList()
         reduction_prev = False
-        '''
-        Construct network according to layers. 
-        If layers == 1, only reduction cell is used. 
-        If layers == 2, only normal + reduction cell.
-        '''
-        if layers == 1:
-            C_curr *= 2
-            reduction = True
-            cell = Cell(steps, multiplier, C_prev_prev, C_prev, C_curr, reduction, reduction_prev)
-            self.cells += [cell]
-            C_prev_prev, C_prev = C_prev, multiplier * C_curr
-        elif layers == 2:
+
+
+        if layers == 2:
             for i in range(layers):
                 if i == 1:
                     C_curr *= 2
@@ -122,27 +102,14 @@ class Network(nn.Module):
                 reduction_prev = reduction
                 self.cells += [cell]
                 C_prev_prev, C_prev = C_prev, multiplier*C_curr
-        else:
-            for i in range(layers):
-                if i in [layers // 3, 2 * layers // 3]:
-                    C_curr *= 2
-                    reduction = True
-                else:
-                    reduction = False
-                cell = Cell(steps, multiplier, C_prev_prev, C_prev, C_curr, reduction, reduction_prev)
-                reduction_prev = reduction
-                self.cells += [cell]
-                C_prev_prev, C_prev = C_prev, multiplier*C_curr
+
 
         self.global_pooling = nn.AdaptiveAvgPool2d(1)
 
         if self._args.checkname == 'darts' or self._args.checkname == 'enas':
             self.classifier = nn.Linear(C_prev, num_classes)
-            #self._initialize_alphas()
         else:
             self.classifier_meta_nas = nn.Linear(C_prev, num_classes)
-            #self._initialize_alphas()
-            #self._load_pretrained_alphas()
         if pretrained == True:
             self._load_pretrained_alphas()
         else:
@@ -156,9 +123,7 @@ class Network(nn.Module):
             x.data.copy_(y.data)
         return model_new
 
-    # TODO: modify the original forward to add theta and w
     def forward(self, input, alphas):
-        # s0 = s1 = self.stem(input)
         s0 = s1 = self.stem0(input)
         for i, cell in enumerate(self.cells):
             if cell.reduction:
@@ -182,15 +147,13 @@ class Network(nn.Module):
         return self._criterion(logits, target)
 
     def _initialize_alphas(self):
-        k = sum(1 for i in range(self._steps) for n in range(2+i))  # k=2+3+4+5=14
+        k = sum(1 for i in range(self._steps) for n in range(2+i))
         num_ops = len(PRIMITIVES)
 
         self.alphas_normal = 1e-3*nn.init.normal_(torch.empty(k, num_ops)).cuda()   # self.alphas_normal.shape = [14, 8]
         self.alphas_normal.requires_grad = True
         self.alphas_reduce = 1e-3*nn.init.normal_(torch.empty(k, num_ops)).cuda()
         self.alphas_reduce.requires_grad = True
-        # self.alphas_normal = 1e-3*torch.randn((k, num_ops), requires_grad=True, device='cuda')
-        # self.alphas_reduce = 1e-3*torch.randn((k, num_ops), requires_grad=True, device='cuda')
         if self._args.layers == 1:
             self._arch_parameters = [
                 self.alphas_reduce
