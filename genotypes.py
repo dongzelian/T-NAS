@@ -6,6 +6,28 @@ Genotype_multi = namedtuple('Genotype', 'normal_bottom normal_concat_bottom redu
                                          normal_top normal_concat_top')
 
 
+PRIMITIVES = [
+    'none',
+    'max_pool_3x3',
+    'avg_pool_3x3',
+    'skip_connect',
+    'sep_conv_3x3',
+    'sep_conv_5x5',
+    'dil_conv_3x3',
+    'dil_conv_5x5'
+]
+
+LSTM_PRIMITIVES = [
+    'max_pool_3x3',
+    'avg_pool_3x3',
+    'skip_connect',
+    'sep_conv_3x3',
+    'sep_conv_5x5',
+    'dil_conv_3x3',
+    'dil_conv_5x5'
+]
+
+
 '''
 Searched by Dongze Lian (2019/3/12)
 '''
