@@ -16,7 +16,7 @@ PyTorch implementation  of ICLR2020 paper 'Towards Fast Adaptation of Neural Arc
     
     
 ## Evaluate T-NAS in Mini-Imagenet
-   Here, the workload is very high, because we only get meta-theta in search stage. It is worthing note that the network weights cannot
+   Here, the workload is very high, because we only get meta-theta in search stage. It is worth noting that the network weights cannot
    be used to transfer to evaluate the final performance. Similar other NAS (e.g., darts) and auto-maml, we need to train the model from 
    scratch. In the implementation, we set 600 tasks (consistent with meta learning) to evaluate. Therefore, you need to do the following steps:
    1) for each task, decoding the architecture theta according to the 5-way, 1/5-shot samples.
@@ -59,10 +59,10 @@ normal cell and reduction cell
 # Citation
 
 ```
-@article{lian2020iclr,
-    Author    = {Dongze Lian, Yin Zheng, Yintao Xu, Yanxiong Lu, Leyu Lin, Peilin Zhao, Junzhou Huang, Shenghua Gao.},
-    Title     = {Towards Fast Adaptation of Neural Architectures with Meta Learning.},
-    Journal   = {ICLR},
-    Year      = {2020}
-    }
+@InProceedings{lian2020iclr,
+	title={Towards Fast Adaptation of Neural Architectures with Meta Learning},
+	author={Lian, Dongze and Zheng, Yin and Xu, Yintao and Lu, Yanxiong and Lin, Leyu and Zhao, Peilin and Huang, Junzhou and Gao, Shenghua},
+	booktitle={International Conference on Learning Representations (ICLR)},
+	year={2020}
+}
 ```
